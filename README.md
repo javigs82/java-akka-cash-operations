@@ -27,6 +27,7 @@ Each account has an owner and a balance. Accounts also support deposits and with
     - interest is being paid each 10 seconds
     - saving account is associated to a checking account, so payments will be deposit on the checking account.
     - all saving accounts are fixed deposit 
+  - testing should cover at least 80% of source, but this only a quiz.
    
 
 ## Actor Architecture 
