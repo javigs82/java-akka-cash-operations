@@ -1,5 +1,5 @@
 # Cash Operations
-Cash Operations is a concurrent system banking example built on top of akka framework and java8. 
+Cash Operations is a concurrent banking system example built on top of akka framework and java8. 
 It aims to show how to use actor model paradigm to implement concurrency operations avoiding locks and blocks (and also their tedious and complex use) 
 while focusing in the business requirements.
 
@@ -27,7 +27,7 @@ Each account has an owner and a balance. Accounts also support deposits and with
     - interest is being paid each 10 seconds
     - saving account is associated to a checking account, so payments will be deposit on the checking account.
     - all saving accounts are fixed deposit 
-  - testing should cover at least 80% of source, but this only a quiz.
+  - testing should cover at least 80% of source, but this is only a quiz.
    
 
 ## Actor Architecture 
