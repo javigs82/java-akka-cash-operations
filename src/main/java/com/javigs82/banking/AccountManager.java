@@ -69,20 +69,13 @@ public class AccountManager extends AbstractActor {
                 .match(CreateSavingAccount.class, csa -> {
                     log.info("creating saving account for checking account id {}, amount {}, interest {} ", csa.checkingAccountId, csa.blockedAmount, csa.interestRate);
                     this.checkingAccountIdToActor.get(csa.checkingAccountId).tell(new CheckingAccount.Withdrawal(Math.abs(csa.blockedAmount)), getSelf());
-
-                    final ActorRef savingActor = //some dummy params
-                            getContext().actorOf(SavingAccount.props(csa.checkingAccountId + 1, csa.blockedAmount, csa.interestRate, csa.checkingAccountId), "saving-account-" + csa.checkingAccountId);
-
+                    final ActorRef savingActor = getContext().actorOf(SavingAccount.props(csa.checkingAccountId + 1, csa.blockedAmount, csa.interestRate, csa.checkingAccountId), "saving-account-" + csa.checkingAccountId);
                     Cancellable schedule = getContext().getSystem().scheduler().schedule(Duration.Zero(),
                             Duration.create(10, TimeUnit.SECONDS), savingActor, new SavingAccount.CalculateInterestSavings(),
                             getContext().getSystem().dispatcher(), getSelf());
-
-
                 })
                 .match(SavingAccount.ResponseInterestSavings.class, response -> {
                     this.checkingAccountIdToActor.get(response.checkingAccountId).tell(new CheckingAccount.Deposit(response.amount), getSelf());
-
-
                 })
                 .match(IllegalArgumentException.class, exception -> {
                     log.error("operation cannot be done: " + exception.getMessage());
